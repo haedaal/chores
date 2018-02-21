@@ -8,6 +8,7 @@
   },
   "main": "index.js",
   "scripts": {
+    "install": "node src/setup.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "commit": "git-cz",
     "commitmsg": "validate-commit-msg",

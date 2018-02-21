@@ -17,3 +17,5 @@ function installPackages(packages) {
     execSync(`npm install ${package.name} ${package.save ? package.save : '--save-dev'}`)
   })
 }
+
+installPackages(packages)

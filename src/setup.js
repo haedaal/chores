@@ -1,5 +1,5 @@
-const { execSync } = require('child_process')
 const { installNodePackages } = require('./install')
+const { configure } = require('./configure')
 
 packages = [
   { name: 'commitizen' /* default value for key 'save': '--save-dev' */ },
@@ -14,3 +14,5 @@ packages = [
 ]
 
 installNodePackages(packages)
+
+configure()

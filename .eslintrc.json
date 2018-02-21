@@ -1,6 +1,5 @@
 {
   "extends": ["prettier", "eslint-config-prettier"],
-  "plugins": ["prettier", "standard"],
   "parserOptions": {
     "sourceType": "module",
     "ecmaFeatures": {
@@ -12,6 +11,8 @@
     "node": true
   },
   "rules": {
-    "prettier/prettier": "error"
+    "prefer-const": 2,
+    "eqeqeq": "error",
+    "no-var": "error"
   }
 }

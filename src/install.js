@@ -5,11 +5,37 @@ function execSyncOnRoot(cmd) {
 }
 
 function installNodePackages(packages) {
-  packages.forEach(p => {
-    const cmd = `npm install ${p.name} ${p.save ? p.save : '--save-dev'}`
-    const buffer = execSyncOnRoot(cmd)
-    console.log(buffer.toString())
+  // group by save mode
+  const packageGroups = groupBy(packages, p => p.mode)
+
+  packageGroups.forEach(pg => {
+    const { key, elems } = pg
+    installNodePackagesAtOnce(elems, key)
   })
+}
+
+function installNodePackagesAtOnce(packages, mode) {
+  const cmd = `npm i ${mode} ${packages.map(p => p.name).join(' ')}`
+  console.info('running cmd:', cmd)
+  const buffer = execSyncOnRoot(cmd)
+  console.log(buffer.toString())
+}
+
+function groupBy(elems, getKey) {
+  const groupMap = {}
+
+  elems.forEach(elem => {
+    const group = groupMap[getKey(elem)]
+    if (group) {
+      group.push(elem)
+    } else {
+      groupMap[getKey(elem)] = [elem]
+    }
+  })
+
+  const keys = Object.keys(groupMap)
+
+  return keys.map(k => ({ key: k, elems: groupMap[k] }))
 }
 
 module.exports = {

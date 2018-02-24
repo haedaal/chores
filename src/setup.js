@@ -1,17 +1,20 @@
 const { installNodePackages } = require('./install')
 const { configure } = require('./configure')
 
-packages = [
-  { name: 'commitizen' /* default value for key 'save': '--save-dev' */ },
-  { name: 'cz-conventional-changelog' },
-  { name: 'eslint' },
-  { name: 'eslint-config-prettier' },
-  { name: 'husky' },
-  { name: 'lint-staged' },
-  { name: 'prettier' },
-  { name: 'semantic-release' },
-  { name: 'validate-commit-msg' },
+const packageNames = [
+  'commitizen',
+  'cz-conventional-changelog',
+  'eslint',
+  'eslint-config-prettier',
+  'husky',
+  'lint-staged',
+  'prettier',
+  'semantic-release',
+  'validate-commit-msg',
 ]
+
+// install all packages with --save-dev
+const packages = packageNames.map(name => ({ name, mode: '--save-dev' }))
 
 installNodePackages(packages)
 

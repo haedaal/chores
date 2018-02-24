@@ -1,0 +1,27 @@
+{
+  "version": "0.0.0-development",
+  "scripts": {
+    "commit": "git-cz",
+    "commitmsg": "validate-commit-msg",
+    "precommit": "lint-staged",
+    "prettier": "prettier --config .prettierrc.json --write './**/*.{js,json,ts,css,md,scss}'",
+    "semantic-release-local": "semantic-release --no-ci",
+    "semantic-release": "semantic-release"
+  },
+  "lint-staged": {
+    "**/*.{js,json,css,scss,md,ts}": ["prettier --write", "git add"]
+  },
+  "release": {
+    "verifyConditions": [
+      "@semantic-release/changelog",
+      "@semantic-release/github",
+      "@semantic-release/npm"
+    ],
+    "publish": ["@semantic-release/changelog", "@semantic-release/github", "@semantic-release/npm"]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "default": {
+    "packages": ["semantic-release"],
+    "files": [
+      {
+        "path": "package.json",
+        "type": "json",
+        "strategy": "mergeRight",
+        "content": {
+          "version": "0.0.0-development",
+          "scripts": {
+            "semantic-release-local": "semantic-release --no-ci",
+            "semantic-release": "semantic-release"
+          },
+          "release": {
+            "verifyConditions": ["@semantic-release/github", "@semantic-release/npm"],
+            "publish": ["@semantic-release/github", "@semantic-release/npm"]
+          }
+        }
+      }
+    ]
+  }
+}

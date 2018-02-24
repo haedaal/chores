@@ -1,8 +1,6 @@
 const fs = require('fs')
 const path = require('path')
 
-const conf = require('./package.overwrite.json')
-
 function mutatingMergeDeepRight(left, right) {
   Object.keys(right).forEach(k => {
     const lv = left[k]
@@ -26,11 +24,33 @@ function mergeDeepRight(left, right) {
   return mutatingMergeDeepRight(res, right)
 }
 
-function configure() {
-  const file = path.join(process.env.INIT_CWD, 'package.json')
-  let json = JSON.parse(fs.readFileSync(file, 'utf8'))
-  json = mergeDeepRight(json, conf)
+function mergeRightJson(filePath, content) {
+  const file = path.join(process.env.INIT_CWD, filePath)
+  let json
+  try {
+    json = JSON.parse(fs.readFileSync(file, 'utf8'))
+  } catch (e) {
+    json = {}
+  }
+  json = mergeDeepRight(json, content)
   fs.writeFileSync(file, JSON.stringify(json, null, 2))
+}
+
+function configure(files) {
+  console.log('files', files)
+  files.forEach(file => {
+    switch (file.type) {
+      case 'json': {
+        // ignore strategy temporalily
+        const { path, type, content } = file
+        mergeRightJson(path, content)
+        break
+      }
+      default: {
+        console.warn(`${file.type} not supported`)
+      }
+    }
+  })
 }
 
 module.exports = {

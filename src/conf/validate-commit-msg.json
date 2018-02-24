@@ -1,0 +1,23 @@
+{
+  "default": {
+    "packages": ["husky", "commitizen", "cz-conventional-changelog", "validate-commit-msg"],
+    "files": [
+      {
+        "path": "package.json",
+        "type": "json",
+        "strategy": "mergeRight",
+        "content": {
+          "scripts": {
+            "commit": "git-cz",
+            "commitmsg": "validate-commit-msg"
+          },
+          "config": {
+            "commitizen": {
+              "path": "./node_modules/cz-conventional-changelog"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

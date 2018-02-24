@@ -15,13 +15,14 @@
     "commit": "git-cz",
     "commitmsg": "validate-commit-msg",
     "precommit": "lint-staged",
-    "prettier": "prettier --config .prettierrc.json --write './**/*.{js,json,ts,css,md,scss}'",
+    "prettier": "prettier --write './**/*.{js,json,css,scss,md}'",
     "release": "git push && npm run build && cd dist && npm run semantic-release-local",
     "semantic-release-local": "semantic-release --no-ci",
     "semantic-release": "semantic-release"
   },
   "lint-staged": {
-    "**/*.{js,json,css,scss,md,ts}": ["prettier --write", "git add"]
+    "**/*.{js,json,css,scss,md,ts}": ["prettier --write", "git add"],
+    "**/*.{js,json,css,scss,md}": ["prettier --write", "git add"]
   },
   "author": "Minjae Kim",
   "license": "MIT",
@@ -31,6 +32,7 @@
     "cz-conventional-changelog": "^2.1.0",
     "eslint": "^4.18.1",
     "eslint-config-prettier": "^2.9.0",
+    "eslint-config-standard": "^11.0.0",
     "gulp": "^3.9.1",
     "husky": "^0.14.3",
     "lint-staged": "^6.1.1",
@@ -41,11 +43,11 @@
   },
   "release": {
     "verifyConditions": [
-      "@semantic-release/changelog",
       "@semantic-release/github",
+      "@semantic-release/npm",
       "@semantic-release/npm"
     ],
-    "publish": ["@semantic-release/changelog", "@semantic-release/github", "@semantic-release/npm"]
+    "publish": ["@semantic-release/github", "@semantic-release/npm", "@semantic-release/npm"]
   },
   "config": {
     "commitizen": {

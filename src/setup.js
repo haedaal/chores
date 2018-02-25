@@ -1,3 +1,4 @@
+const { execSync } = require('child_process')
 const { installNodePackages } = require('./install')
 const { configure } = require('./configure')
 
@@ -35,5 +36,6 @@ const configureFiles = F.flattenArray([
 configure(configureFiles)
 
 // cleanup
+execSync(`rm -rf node_modules/chores`, { cwd: process.env.INIT_CWD })
 
 console.log('need to cleanup to prevent running every updates, etc.\n rm -rf node_modules/chores')

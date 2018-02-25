@@ -42,12 +42,8 @@
     "validate-commit-msg": "^2.14.0"
   },
   "release": {
-    "verifyConditions": [
-      "@semantic-release/github",
-      "@semantic-release/npm",
-      "@semantic-release/npm"
-    ],
-    "publish": ["@semantic-release/github", "@semantic-release/npm", "@semantic-release/npm"]
+    "verifyConditions": ["@semantic-release/github", "@semantic-release/npm"],
+    "publish": ["@semantic-release/github", "@semantic-release/npm"]
   },
   "config": {
     "commitizen": {

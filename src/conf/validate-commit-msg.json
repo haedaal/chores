@@ -1,6 +1,6 @@
 {
   "default": {
-    "packages": ["husky", "commitizen", "cz-conventional-changelog", "validate-commit-msg"],
+    "packages": ["commitizen", "cz-conventional-changelog", "validate-commit-msg"],
     "files": [
       {
         "path": "package.json",

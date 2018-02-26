@@ -1,6 +1,6 @@
 {
   "default": {
-    "packages": ["semantic-release", "@semantic-release/changelog"],
+    "packages": ["semantic-release"],
     "files": [
       {
         "path": "package.json",
@@ -13,16 +13,8 @@
             "semantic-release": "semantic-release"
           },
           "release": {
-            "verifyConditions": [
-              "@semantic-release/changelog",
-              "@semantic-release/github",
-              "@semantic-release/npm"
-            ],
-            "publish": [
-              "@semantic-release/changelog",
-              "@semantic-release/github",
-              "@semantic-release/npm"
-            ]
+            "verifyConditions": ["@semantic-release/github", "@semantic-release/npm"],
+            "publish": ["@semantic-release/github", "@semantic-release/npm"]
           }
         }
       }

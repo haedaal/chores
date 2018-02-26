@@ -1,6 +1,6 @@
 {
   "default": {
-    "packages": ["lint-staged", "prettier"],
+    "packages": ["husky", "lint-staged", "prettier"],
     "files": [
       {
         "path": "package.json",

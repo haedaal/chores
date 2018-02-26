@@ -36,14 +36,14 @@ const configureFiles = F.flattenArray([
 configure(configureFiles)
 
 // copy cleanUp script to project root
-const originPath = path.join(process.env.PWD, 'src', 'cleanup.js')
-const targetPath = path.join(process.env.INIT_CWD, 'cleanup.js')
-execSync(`cp ${originPath} ${targetPath}`)
-console.info(
-  `
-  ##################################################################################
-  [NOTICE] Run generated cleanup script with "node cleanup.js" on project root dir
-  Or chores will be run every "npm install" or "npm update"
-  ##################################################################################
-  `
-)
+// const originPath = path.join(process.env.PWD, 'src', 'cleanup.js')
+// const targetPath = path.join(process.env.INIT_CWD, 'cleanup.js')
+// execSync(`cp ${originPath} ${targetPath}`)
+// console.info(
+//   `
+//   ##################################################################################
+//   [NOTICE] Run generated cleanup script with "node cleanup.js" on project root dir
+//   Or chores will be run every "npm install" or "npm update"
+//   ##################################################################################
+//   `
+// )

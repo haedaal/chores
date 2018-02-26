@@ -1,6 +1,7 @@
 const { execSync } = require('child_process')
 const { installNodePackages } = require('./install')
 const { configure } = require('./configure')
+const path = require('path')
 
 const lintConf = require('./conf/lint.json')
 const semanticRelease = require('./conf/semantic-release.json')
@@ -34,7 +35,14 @@ const configureFiles = F.flattenArray([
 
 configure(configureFiles)
 
-// cleanUp
-const cleanUp = require('./cleanup')
-
-cleanUp()
+// copy cleanUp script to project root
+const targetPath = path.join(process.env.INIT_CWD, 'cleanup.js')
+execSync(`cp src/cleanup.js ${targetPath}`)
+console.info(
+  `
+  ##################################################################################
+  [NOTICE] Run generated cleanup script with "node cleanup.js" on project root dir
+  Or chores will be run every "npm install" or "npm update"
+  ##################################################################################
+  `
+)

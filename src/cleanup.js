@@ -1,13 +1,18 @@
+// run this script on root directory
+
 const { execSync } = require('child_process')
 const fs = require('fs')
 const path = require('path')
 
 function cleanUp() {
-  execSync(`rm -rf node_modules/chores`, { cwd: process.env.INIT_CWD })
+  // execSync(`rm -rf node_modules/chores`, { cwd: process.env.INIT_CWD })
+  execSync(`rm -rf node_modules/chores`)
+
+  const rootPath = '.'
 
   // pakcage.json
   try {
-    const file = path.join(process.env.INIT_CWD, './package.json')
+    const file = path.join(rootPath, 'package.json')
     const json = JSON.parse(fs.readFileSync(file, 'utf8'))
     if (json.dependencies && json.dependencies.chores) {
       delete json.dependencies.chores
@@ -26,7 +31,7 @@ function cleanUp() {
 
   // pakcage-lock.json
   try {
-    const file = path.join(process.env.INIT_CWD, './package-lock.json')
+    const file = path.join(rootPath, 'package-lock.json')
     const json = JSON.parse(fs.readFileSync(file, 'utf8'))
     if (json.dependencies && json.dependencies.chores) {
       delete json.dependencies.chores
@@ -39,6 +44,8 @@ function cleanUp() {
       'Failed to remove chores from package-lock.json\nRemove chores setting manually or it will be triggered every npm install or update'
     )
   }
+
+  fs.unlinkSync('./cleanup.js')
 }
 
-module.exports = cleanUp
+cleanUp()

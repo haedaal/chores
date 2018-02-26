@@ -37,7 +37,7 @@ function mergeRightJson(filePath, content) {
 }
 
 function configure(files) {
-  console.log('files', files)
+  // console.log('files', files)
   files.forEach(file => {
     switch (file.type) {
       case 'json': {

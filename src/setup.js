@@ -10,7 +10,7 @@ const F = require('./util/F')
 
 const extractUniqPackage = F.pipe(F.flattenArray, F.uniq)
 
-// run prompt to get project info
+// TODO: run prompt to get project info
 
 const packageNames = extractUniqPackage([
   lintConf.default.packages,
@@ -19,13 +19,12 @@ const packageNames = extractUniqPackage([
   validateCommitMsg.default.packages,
 ])
 
-// console.log(packageNames)
-
 // install all packages with --save-dev
 const packages = packageNames.map(name => ({ name, mode: '--save-dev' }))
 
 installNodePackages(packages)
 
+// configure package.json, etc.
 const configureFiles = F.flattenArray([
   lintConf.default.files,
   lintConf.javascript.files,
@@ -35,7 +34,7 @@ const configureFiles = F.flattenArray([
 
 configure(configureFiles)
 
-// cleanup
-execSync(`rm -rf node_modules/chores`, { cwd: process.env.INIT_CWD })
+// cleanUp
+const cleanUp = require('./cleanup')
 
-console.log('need to cleanup to prevent running every updates, etc.\n rm -rf node_modules/chores')
+cleanUp()

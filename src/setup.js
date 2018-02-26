@@ -36,7 +36,7 @@ const configureFiles = F.flattenArray([
 configure(configureFiles)
 
 // copy cleanUp script to project root
-const originPath = path.join(process.env.PWD, 'cleanup.js')
+const originPath = path.join(process.env.PWD, 'src', 'cleanup.js')
 const targetPath = path.join(process.env.INIT_CWD, 'cleanup.js')
 execSync(`cp ${originPath} ${targetPath}`)
 console.info(

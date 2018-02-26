@@ -1,19 +1,21 @@
 const { execSync } = require('child_process')
+const fs = require('fs')
+const path = require('path')
 
 function cleanUp() {
   execSync(`rm -rf node_modules/chores`, { cwd: process.env.INIT_CWD })
 
+  // pakcage.json
   try {
-    const packageJsonPath = path.join(process.env.INIT_CWD, './package.json')
-    const packageJson = JSON.parse(fs.readFileSync(file, 'utf8'))
-    if (packageJson.dependencies && packageJson.dependencies.chores) {
-      delete packageJson.dependencies.chores
+    const file = path.join(process.env.INIT_CWD, './package.json')
+    const json = JSON.parse(fs.readFileSync(file, 'utf8'))
+    if (json.dependencies && json.dependencies.chores) {
+      delete json.dependencies.chores
     }
-    if (packageJson.devDependencies && packageJson.devDependencies.chores) {
-      delete packageJson.devDependencies.chores
+    if (json.devDependencies && json.devDependencies.chores) {
+      delete json.devDependencies.chores
     }
 
-    json = mergeDeepRight(json, content)
     fs.writeFileSync(file, JSON.stringify(json, null, 2))
   } catch (e) {
     console.error(e)
@@ -22,13 +24,14 @@ function cleanUp() {
     )
   }
 
+  // pakcage-lock.json
   try {
-    const packageJsonPath = path.join(process.env.INIT_CWD, './package-lock.json')
-    const packageJson = JSON.parse(fs.readFileSync(file, 'utf8'))
-    if (packageJson.dependencies && packageJson.dependencies.chores) {
-      delete packageJson.dependencies.chores
+    const file = path.join(process.env.INIT_CWD, './package-lock.json')
+    const json = JSON.parse(fs.readFileSync(file, 'utf8'))
+    if (json.dependencies && json.dependencies.chores) {
+      delete json.dependencies.chores
     }
-    json = mergeDeepRight(json, content)
+
     fs.writeFileSync(file, JSON.stringify(json, null, 2))
   } catch (e) {
     console.error(e)

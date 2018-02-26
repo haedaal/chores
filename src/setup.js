@@ -50,3 +50,7 @@ const configureFiles = F.flattenArray([
 configure(configureFiles)
 
 // 4. cleanup
+
+const cleanUp = require('./cleanup')
+
+cleanUp()

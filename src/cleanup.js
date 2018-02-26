@@ -7,7 +7,7 @@ const fs = require('fs')
 const path = require('path')
 
 function cleanUp() {
-  const rootPath = process.env.INIT_CWD
+  const rootPath = process.env.PWD
 
   // pakcage.json
   try {
@@ -45,4 +45,4 @@ function cleanUp() {
   }
 }
 
-cleanUp()
+module.exports = cleanUp

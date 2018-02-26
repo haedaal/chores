@@ -25,7 +25,7 @@ function mergeDeepRight(left, right) {
 }
 
 function mergeRightJson(filePath, content) {
-  const file = path.join(process.env.INIT_CWD, filePath)
+  const file = path.join(process.env.PWD, filePath)
   let json
   try {
     json = JSON.parse(fs.readFileSync(file, 'utf8'))

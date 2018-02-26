@@ -1,13 +1,13 @@
 // run this script on root directory
 
+console.info('Starting clean-up process')
+
 const { execSync } = require('child_process')
 const fs = require('fs')
 const path = require('path')
 
 function cleanUp() {
   // execSync(`rm -rf node_modules/chores`, { cwd: process.env.INIT_CWD })
-  execSync(`rm -rf node_modules/chores`)
-
   const rootPath = '.'
 
   // pakcage.json
@@ -44,6 +44,9 @@ function cleanUp() {
       'Failed to remove chores from package-lock.json\nRemove chores setting manually or it will be triggered every npm install or update'
     )
   }
+
+  console.info('removing node_modules/chores')
+  execSync(`rm -rf node_modules/chores`)
 }
 
 cleanUp()

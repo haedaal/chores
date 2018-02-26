@@ -35,6 +35,10 @@ const configureFiles = F.flattenArray([
 
 configure(configureFiles)
 
+// cleanup
+const cleanUp = require('./cleanup')
+cleanUp()
+
 // copy cleanUp script to project root
 // const originPath = path.join(process.env.PWD, 'src', 'cleanup.js')
 // const targetPath = path.join(process.env.INIT_CWD, 'cleanup.js')

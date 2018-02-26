@@ -44,8 +44,6 @@ function cleanUp() {
       'Failed to remove chores from package-lock.json\nRemove chores setting manually or it will be triggered every npm install or update'
     )
   }
-
-  fs.unlinkSync('./cleanup.js')
 }
 
 cleanUp()

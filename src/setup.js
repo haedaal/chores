@@ -1,17 +1,29 @@
 const { execSync } = require('child_process')
-const { installNodePackages } = require('./install')
-const { configure } = require('./configure')
 const path = require('path')
 
+// fp utils
+const F = require('./util/F')
+
+/**
+ * CAUTION
+ * This file will be copied to the rootDir of another project
+ * and will be run there
+ */
+// const chores_base_dir = './node_modules/chores/src'
+
+// load configurations
 const lintConf = require('./conf/lint.json')
 const semanticRelease = require('./conf/semantic-release.json')
 const validateCommitMsg = require('./conf/validate-commit-msg.json')
 
-const F = require('./util/F')
+console.log('Starting chores...')
+
+// TODO: 1. Prompt to get project info
+
+// 2. setup
+const { installNodePackages } = require('./install')
 
 const extractUniqPackage = F.pipe(F.flattenArray, F.uniq)
-
-// TODO: run prompt to get project info
 
 const packageNames = extractUniqPackage([
   lintConf.default.packages,
@@ -25,7 +37,9 @@ const packages = packageNames.map(name => ({ name, mode: '--save-dev' }))
 
 installNodePackages(packages)
 
-// configure package.json, etc.
+// 3. configure package.json, etc.
+const { configure } = require('./configure')
+
 const configureFiles = F.flattenArray([
   lintConf.default.files,
   lintConf.javascript.files,
@@ -35,15 +49,4 @@ const configureFiles = F.flattenArray([
 
 configure(configureFiles)
 
-// copy cleanUp script to project root
-// const originPath = path.join(process.env.PWD, 'src', 'cleanup.js')
-// const targetPath = path.join(process.env.INIT_CWD, 'cleanup.js')
-// execSync(`cp ${originPath} ${targetPath}`)
-// console.info(
-//   `
-//   ##################################################################################
-//   [NOTICE] Run generated cleanup script with "node cleanup.js" on project root dir
-//   Or chores will be run every "npm install" or "npm update"
-//   ##################################################################################
-//   `
-// )
+// 4. cleanup

@@ -8,7 +8,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "install": "node src/setup.js",
+    "install": "node src/make-script.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prebuild": "rimraf dist",
     "build": "gulp",

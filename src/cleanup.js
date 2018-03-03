@@ -1,7 +1,5 @@
 // run this script on root directory
 
-console.info('Starting clean-up process')
-
 const { execSync } = require('child_process')
 const fs = require('fs')
 const path = require('path')

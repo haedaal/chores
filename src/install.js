@@ -1,24 +1,35 @@
-const { execSync } = require('child_process')
+const { execSync, exec } = require('child_process')
+const findRootProject = require('./util/find-project')
+
+const projRootDir = findRootProject()
 
 function execSyncOnRoot(cmd) {
-  return execSync(cmd, { cwd: process.env.INIT_CWD })
+  return execSync(cmd, { cwd: projRootDir })
 }
 
-function installNodePackages(packages) {
+function execOnRoot(cmd) {
+  return new Promise((resolve, reject) => {
+    exec(cmd, { cwd: projRootDir }, (err, stdout, stderr) => {
+      if (err) reject(err)
+      resolve(stdout)
+    })
+  })
+}
+
+async function installNodePackages(packages) {
   // group by save mode
   const packageGroups = groupBy(packages, p => p.mode)
 
-  packageGroups.forEach(pg => {
+  for (let pg of packageGroups) {
     const { key, elems } = pg
-    installNodePackagesAtOnce(elems, key)
-  })
+    await installNodePackagesAtOnce(elems, key)
+  }
 }
 
 function installNodePackagesAtOnce(packages, mode) {
   const cmd = `npm i ${mode} ${packages.map(p => p.name).join(' ')}`
-  console.info('running cmd:', cmd)
-  const buffer = execSyncOnRoot(cmd)
-  console.log(buffer.toString())
+  // console.info('running cmd:', cmd)
+  return execOnRoot(cmd)
 }
 
 function groupBy(elems, getKey) {

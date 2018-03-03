@@ -17,4 +17,11 @@ module.exports = {
       return pv.concat(cv)
     }, [])
   },
+  pluck(...keys) {
+    return obj => {
+      return keys.reverse.reduce((pv, key) => {
+        return obj ? obj[key] : undefined
+      }, obj)
+    }
+  },
 }

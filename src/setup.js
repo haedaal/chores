@@ -1,24 +1,22 @@
-const { execSync } = require('child_process')
-const path = require('path')
-
-const F = require('./util/F')
-
 // conf files
 const lintConf = require('./conf/lint.json')
 const semanticRelease = require('./conf/semantic-release.json')
 const validateCommitMsg = require('./conf/validate-commit-msg.json')
 
-// functions
+// setup processes
 const extractUniqPackage = F.pipe(F.flattenArray, F.uniq)
-const { installNodePackages } = require('./install')
-const { configure } = require('./configure')
-const cleanUp = require('./cleanup')
-const ora = require('ora')
+const installNodePackages = require('./util/install-package')
+const configure = require('./configure')
 
+// util
+const F = require('./util/F')
+
+// gui util
+const ora = require('ora')
 let spinner
 
 // main
-module.exports = function setup(language, utils) {
+module.exports = async function setup(language, utils) {
   const packageNames = extractUniqPackage([
     lintConf.default.packages,
     language === 'javascript' ? lintConf.javascript.packages : lintConf.typescript.packages,
@@ -27,12 +25,14 @@ module.exports = function setup(language, utils) {
   ])
 
   // install all packages with --save-dev
-  const packages = packageNames.map(name => ({ name, mode: '--save-dev' }))
+  const devPackages = packageNames.map(name => ({ name, mode: '--save-dev' }))
 
   spinner = ora().start('Installing Node modules')
-  installNodePackages(packages).then(res => {
-    spinner.succeed('Node Modules Installed')
-  })
+
+  // run async, or ora spinner freeze
+  await installNodePackages(devPackages)
+
+  spinner.succeed('Node Modules Installed')
 
   // 3. configure package.json, etc.
 
@@ -43,9 +43,9 @@ module.exports = function setup(language, utils) {
     utils.includes('Validate Commit Message') ? validateCommitMsg.default.files : [],
   ])
 
-  // configure(configureFiles)
+  spinner = ora().start('Configuring Files')
 
-  // 4. cleanup
+  await configure(configureFiles)
 
-  // cleanUp()
+  spinner.succeed('Files Configured')
 }

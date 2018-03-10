@@ -1,17 +1,7 @@
 const inquirer = require('inquirer')
-const chalk = require('chalk')
-const ora = require('ora')
 
-const setup = require('./setup')
-
-console.log(
-  chalk.yellow(`
-Opinionated chores tool "Chores" ❤️
-`)
-)
-
-inquirer
-  .prompt([
+module.exports = () =>
+  inquirer.prompt([
     {
       type: 'list',
       name: 'language',
@@ -25,8 +15,3 @@ inquirer
       choices: ['Semantic Release', 'Validate Commit Message'],
     },
   ])
-  .then(res => {
-    const { language, utils } = res
-    // spinner = ora('Loading unicorns').start()
-    setup(language, utils)
-  })

@@ -6,9 +6,12 @@
     "type": "git",
     "url": "https://github.com/haedaal/chores.git"
   },
-  "main": "index.js",
+  "main": "src/bin/chores.js",
+  "bin": {
+    "chores": "./bin/chores.js"
+  },
   "scripts": {
-    "install": "node src/make-script.js",
+    "install": "node src/guide.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prebuild": "rimraf dist",
     "build": "gulp",
@@ -21,22 +24,21 @@
     "semantic-release": "semantic-release"
   },
   "lint-staged": {
-    "**/*.{js,json,css,scss,md,ts}": ["prettier --write", "git add"],
     "**/*.{js,json,css,scss,md}": ["prettier --write", "git add"]
   },
   "author": "Minjae Kim",
   "license": "MIT",
   "devDependencies": {
-    "@semantic-release/changelog": "^1.0.1",
+    "@semantic-release/changelog": "^1.1.1",
     "commitizen": "^2.9.6",
     "cz-conventional-changelog": "^2.1.0",
-    "eslint": "^4.18.2",
+    "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-standard": "^11.0.0",
     "gulp": "^3.9.1",
     "husky": "^0.14.3",
     "lint-staged": "^6.1.1",
-    "prettier": "^1.11.1",
+    "prettier": "^1.12.0",
     "rimraf": "^2.6.2",
     "semantic-release": "^12.4.1",
     "validate-commit-msg": "^2.14.0"

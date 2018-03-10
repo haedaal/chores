@@ -13,7 +13,7 @@
         }
       },
       {
-        "path": ".prettierrc.json",
+        "path": ".prettierrc",
         "type": "json",
         "strategy": "mergeRight",
         "content": {

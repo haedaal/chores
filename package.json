@@ -8,7 +8,7 @@
   },
   "main": "src/bin/chores.js",
   "bin": {
-    "chores": "./bin/chores.js"
+    "chores": "./src/bin/chores.js"
   },
   "scripts": {
     "install": "node src/guide.js",

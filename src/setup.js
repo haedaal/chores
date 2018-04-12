@@ -1,3 +1,10 @@
+// util
+const F = require('./util/F')
+
+// gui util
+const ora = require('ora')
+let spinner
+
 // conf files
 const lintConf = require('./conf/lint.json')
 const semanticRelease = require('./conf/semantic-release.json')
@@ -7,13 +14,6 @@ const validateCommitMsg = require('./conf/validate-commit-msg.json')
 const extractUniqPackage = F.pipe(F.flattenArray, F.uniq)
 const installNodePackages = require('./util/install-package')
 const configure = require('./configure')
-
-// util
-const F = require('./util/F')
-
-// gui util
-const ora = require('ora')
-let spinner
 
 // main
 module.exports = async function setup(language, utils) {

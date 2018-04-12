@@ -19,7 +19,8 @@
     "commitmsg": "validate-commit-msg",
     "precommit": "lint-staged",
     "prettier": "prettier --write './**/*.{js,json,css,scss,md}'",
-    "release": "git push && npm run build && cd dist && npm run semantic-release-local",
+    "release":
+      "git push && git fetch && npm run build && cd dist && npm run semantic-release-local",
     "semantic-release-local": "semantic-release --no-ci",
     "semantic-release": "semantic-release"
   },
